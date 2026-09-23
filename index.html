@@ -1,0 +1,43 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simulador de tiroides — Cintigrama tiroideo</title><link rel="stylesheet" href="renal.css?v=1"><link rel="stylesheet" href="tiroides.css?v=1"></head><body>
+<main class="window"><header class="titlebar"><span>▦ Simulador de tiroides — Cintigrama tiroideo</span><span class="captionbuttons" aria-hidden="true">▁ ▢</span></header>
+<nav class="menubar"><button id="nuevo">Archivo · Nuevo caso</button><button id="abrirProyecto">Abrir proyecto…</button><button id="tutorialBoton" aria-pressed="true">Tutorial</button><label>Colores <select id="paleta"><option value="grisInv">Gris invertido</option><option value="gris">Escala de grises</option><option value="hot">Hot iron</option></select></label><button id="ayuda">Ayuda</button><span class="derecha">Uso educativo · Los DICOM no salen del navegador</span></nav>
+<div class="steps" aria-label="Pasos"><button data-step="0">1. Cargar el caso</button><button data-step="1">2. Componer la página</button><button data-step="2">3. Ajustar y anotar</button><button data-step="3">4. Exportar</button></div>
+<div class="workspace" id="workspace">
+<aside id="lateral">
+ <fieldset><legend>Caso de trabajo</legend><strong id="casoNombre">Sin caso</strong><p id="casoInfo" class="notice">Elige el caso en el tutorial y carga los archivos de tu carpeta.</p></fieldset>
+ <fieldset id="panelEncabezado" hidden class="encabezado"><legend>Encabezado de la página</legend><label>Título <input id="encTitulo" type="text" maxlength="60" value="CINTIGRAMA DE TIROIDES"></label><label>Segunda línea <input id="encLinea" type="text" maxlength="80" placeholder="Caso N · fecha"></label><label>Pie <input id="encPie" type="text" maxlength="120" placeholder="Tc-99m pertecnetato · 256 × 256 · zoom 2,29"></label><button id="autoOrden">Ordenar 2 × 2 como el equipo</button></fieldset>
+ <fieldset id="panelItem" hidden class="controlItem"><legend>Imagen seleccionada</legend><p id="itemNombre" class="notice">Ninguna</p>
+  <label>Rótulo <input id="itemRotulo" type="text" maxlength="40"></label>
+  <label>Techo <input id="itemTecho" type="range" min="10" max="100" value="100"> <output id="itemTechoValor">100 %</output></label>
+  <label>Piso <input id="itemPiso" type="range" min="0" max="60" value="0"> <output id="itemPisoValor">0 %</output></label>
+  <label>Zoom <input id="itemZoom" type="range" min="100" max="400" value="100"> <output id="itemZoomValor">1,0×</output></label>
+  <div class="fila"><span>Encuadre</span><button id="panIzq" title="Mover la imagen a la izquierda">◀</button><button id="panDer" title="Mover a la derecha">▶</button><button id="panArr" title="Mover arriba">▲</button><button id="panAba" title="Mover abajo">▼</button><button id="panCentro">Centrar</button></div>
+  <div class="fila"><button id="itemFrente">Traer al frente</button><button id="itemQuitar">Quitar de la página</button></div>
+  <p class="notice">Arrastra la imagen para moverla; arrastra la esquina inferior derecha para cambiar su tamaño.</p>
+ </fieldset>
+ <fieldset id="panelAnotar" hidden><legend>Anotaciones</legend>
+  <div class="fila"><button id="herrMover" aria-pressed="true">Mover</button><button id="herrFlecha" aria-pressed="false">Flecha con texto</button></div>
+  <label>Texto de la flecha <input id="flechaTexto" type="text" maxlength="40" placeholder="Marca horquilla esternal"></label>
+  <p class="notice">Con la herramienta Flecha, arrastra desde donde irá el texto hasta el punto que quieres señalar.</p>
+  <ul id="listaAnotaciones" class="anotaciones"></ul>
+ </fieldset>
+</aside>
+<article>
+ <section id="step0" class="step"><h1>Cargar el caso</h1><p>Selecciona los cuatro archivos DICOM de tu carpeta del caso, o la carpeta completa: anterior, anterior con marcas, OAD y OAI.</p>
+  <div class="fila"><label class="filelabel">Archivos <input id="archivos" type="file" multiple></label><label class="filelabel">O carpeta <input id="carpeta" type="file" webkitdirectory multiple></label></div>
+  <ul id="listaArchivos" class="listaArchivos"></ul><p id="cargaInfo" class="notice">Aún no hay archivos.</p>
+  <section id="infoAdquisicion" hidden><h2>Información de la adquisición</h2><p class="notice">Haz clic en un archivo de la lista para ver sus datos de cabecera.</p><div id="infoTabla"></div></section>
+ </section>
+ <section id="step1" class="step" hidden><h1>Componer la página</h1><p>Haz clic en una imagen de la bandeja para ponerla en la página. Arrástrala para moverla y arrastra su esquina para cambiar el tamaño. El equipo las ordena así: anterior arriba a la izquierda, anterior con marcas a su derecha, OAD abajo a la izquierda y OAI abajo a la derecha.</p><div id="bandeja" class="bandeja"></div><div class="paginaMarco"><canvas id="pagina" width="1132" height="860"></canvas></div></section>
+ <section id="step2" class="step" hidden><h1>Ajustar y anotar</h1><p>Selecciona cada imagen y ajusta techo, piso, zoom y encuadre. Con la herramienta Flecha, señala las dos marcas de la anterior con marcas y escribe qué son.</p><div class="paginaMarco"><canvas id="pagina2" width="1132" height="860"></canvas></div></section>
+ <section id="step3" class="step" hidden><h1>Exportar</h1><p>Descarga la página en PNG y guarda el proyecto para poder retomarlo.</p><div class="fila"><button id="pngPagina" disabled>Descargar PNG · página</button><button id="guardarProyecto" disabled>Guardar proyecto…</button></div><p id="exportInfo" class="notice"></p><div id="previsualizacion"></div></section>
+ <div id="vacio" class="empty inset"><div>▦</div><strong>Área de imágenes</strong><p>Carga los archivos del caso para empezar.</p></div>
+ <footer class="actions"><button id="prev" disabled>◀ Anterior</button><button id="next">Siguiente ▶</button></footer>
+</article>
+<section id="tutorial" class="tutorial" aria-label="Tutorial" hidden></section>
+</div>
+<footer class="statusbar"><span id="status" role="status" aria-live="polite">Listo.</span><span id="posicion">Paso 1 de 4</span></footer></main>
+<footer class="taskbar"><button id="inicio">▦ Inicio</button><span class="task">Simulador de tiroides</span><span class="clock">Laboratorio educativo</span></footer>
+<dialog id="acerca"><header class="titlebar">Acerca del simulador de tiroides</header><div><h2>Componer la página de un cintigrama tiroideo</h2><p>Carga las cuatro estáticas de tu caso, compón la página panorámica como la del equipo, ajusta ventana, zoom y encuadre de cada imagen, anota las marcas anatómicas y exporta. Al terminar, compara con la impresión del informe.</p><p>Uso docente. No es un programa validado para diagnóstico. Los archivos se leen en tu navegador y no se envían a ningún servidor. Incluye dicom-parser (MIT).</p><button id="cerrarAcerca">Aceptar</button></div></dialog>
+<input id="proyectoInput" type="file" accept=".renalproject,application/json" hidden>
+<script src="vendor/dicomParser.min.js"></script><script src="renal-core.js?v=1"></script><script src="renal-tutorial.js?v=1"></script><script src="tiroides-casos.js?v=1"></script><script src="tiroides-app.js?v=1"></script></body></html>
