@@ -30,6 +30,10 @@ Participantes: Luciano Tejada (docente) y Claude (Claude Code).
 
 Prueba sin interfaz sobre los 10 casos: carga y reconocimiento por hash, adquisición, agregado en orden de clic arbitrario, arrastre de una imagen al lugar de otra y su detección, reordenamiento automático, ajustes por la interfaz, flecha dibujada con el mouse, flecha con texto equivocado detectada, flechas correctas aceptadas, exportación, cierre con impresión o aviso de «sin informe», y archivo de otro caso. 181 comprobaciones, 0 fallas.
 
+### Línea del panel al control (26-09-2026)
+
+El panel compartido `renal-tutorial.js` tira ahora una línea de puntos animada desde su borde hasta el control resaltado, con `tutorial-linea.js` (idéntico en los cinco simuladores). Idea tomada de la consola TC; decisión y validación en la bitácora de `simulador-cardiaco`, sección 10. Solo cambia la guía visual; los cálculos no se tocaron.
+
 ### Pendientes
 
 - Probar el arrastre y el redimensionado con una mano real; las pruebas usan eventos de puntero sintéticos.
