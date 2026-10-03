@@ -25,3 +25,8 @@ Un PNG por caso, la página panorámica, más un archivo `.renalproject` para re
 ## Privacidad y alcance
 
 La aplicación funciona íntegramente en el navegador. Los DICOM no se incluyen en este repositorio ni se envían a ningún servidor. Uso docente: no es un programa validado para diagnóstico ni para decisiones clínicas.
+
+## Licencia
+
+© 2026 Luciano Tejada Castro. Distribuido bajo licencia [MIT](LICENSE).
+Los componentes y datos de terceros conservan sus propias licencias, indicadas en este documento o junto a ellos.
